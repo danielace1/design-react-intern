@@ -1,6 +1,10 @@
 import { useState } from "react";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaCalendarDay } from "react-icons/fa";
 import { MdArrowDropDown, MdGroupAdd } from "react-icons/md";
+import { PiSuitcaseSimple } from "react-icons/pi";
+
+import Article from "../components/Article";
+import Event from "../components/Event";
 const Home = () => {
   const [activeTab, setActiveTab] = useState("allposts");
   const [filterTab, setFilterTab] = useState(false);
@@ -38,7 +42,7 @@ const Home = () => {
       </div>
 
       {/* Content */}
-      <div className="container px-4 md:px-7 lg:px-24 xl:px-40">
+      <div className="container px-3 md:px-7 lg:px-24 xl:px-40">
         {/* Tabs */}
         <div className="hidden md:flex items-center justify-between">
           <ul className="flex items-center space-x-5 relative">
@@ -75,11 +79,11 @@ const Home = () => {
         <hr className="hidden md:flex relative mt-2 border border-gray-300" />
 
         {/* Mobile Tabs */}
-        <div className="flex md:hidden items-center justify-between">
+        <div className="relative flex md:hidden items-center justify-between">
           <h1 className="font-semibold text-lg">Posts(368)</h1>
           <div>
             <button
-              onClick={() => setFilterTab(!false)}
+              onClick={() => setFilterTab(!filterTab)}
               className="flex items-center bg-gray-200 px-3 py-1.5 rounded-md"
             >
               Filter:{" "}
@@ -107,6 +111,72 @@ const Home = () => {
                   ))}
                 </ul>
               </div>
+            )}
+          </div>
+        </div>
+
+        {/* Posts */}
+        <div className="flex items-center space-x-4 mt-5 mb-10">
+          <div className="md:w-8/12 space-y-5">
+            {(activeTab === "article" || activeTab === "allposts") && (
+              <Article
+                img={"/article.png"}
+                tab={"✍️ Article"}
+                heading={
+                  "What if famous brands had regular fonts? Meet RegulaBrands!"
+                }
+                authorImg={"/person1.png"}
+                authorName={"Sarthak Kamra"}
+              />
+            )}
+
+            {(activeTab === "education" || activeTab === "allposts") && (
+              <Article
+                img={"/education.png"}
+                tab={"🔬️ Education"}
+                heading={
+                  "Tax Benefits for Investment under National Pension Scheme launched by Government"
+                }
+                authorImg={"/person2.png"}
+                authorName={"Sarah West"}
+              />
+            )}
+
+            {(activeTab === "event" || activeTab === "allposts") && (
+              <Event
+                img={"/meetup.png"}
+                tab={"🗓️ Meetup"}
+                heading={"Finance & Investment Elite Social Mixer @Lujiazui"}
+                info={
+                  <>
+                    <FaCalendarDay className="text-lg mr-2" />
+                    Fri, 12 Oct, 2018
+                  </>
+                }
+                location={"Ahmedabad, India"}
+                text={"Visit Website"}
+                textColor={"text-red-500"}
+                authorImg={"/person3.png"}
+                authorName={"Ronal Jones"}
+              />
+            )}
+
+            {(activeTab === "job" || activeTab === "allposts") && (
+              <Event
+                tab={"💼️ Job"}
+                heading={"Software Developer"}
+                info={
+                  <>
+                    <PiSuitcaseSimple className="text-lg mr-2" />
+                    Innovaccer Analytics Private Ltd.
+                  </>
+                }
+                location={"Noida, India"}
+                text={"Apply on Timesjobs"}
+                textColor={"text-green-500"}
+                authorImg={"/person4.png"}
+                authorName={"Joseph Gray"}
+              />
             )}
           </div>
         </div>
