@@ -1,8 +1,10 @@
+import Proptypes from "prop-types";
 import { useEffect, useState } from "react";
 import { IoMdSearch } from "react-icons/io";
 import { MdArrowDropDown } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
-const TheNavbar = () => {
+import FormModal from "./FormModal";
+const TheNavbar = ({ showForm, handleShowForm }) => {
   const location = useLocation();
   const [user, setUser] = useState(false);
 
@@ -37,9 +39,14 @@ const TheNavbar = () => {
           </div>
         ) : (
           <>
-            <h1 className="font-semibold">
-              Create account. <span className="text-blue-500 ">It’s free!</span>
+            <h1
+              onClick={handleShowForm}
+              className="font-semibold hover:cursor-pointer"
+            >
+              Create account. <span className="text-blue-500">It’s free!</span>
             </h1>
+
+            {showForm && <FormModal />}
           </>
         )}
 
@@ -48,4 +55,10 @@ const TheNavbar = () => {
     </nav>
   );
 };
+
+TheNavbar.propTypes = {
+  showForm: Proptypes.bool,
+  handleShowForm: Proptypes.func,
+};
+
 export default TheNavbar;

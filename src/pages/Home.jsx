@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useOutletContext } from "react-router-dom";
 import { FaArrowLeft, FaCalendarDay } from "react-icons/fa";
 import {
   MdArrowDropDown,
@@ -15,12 +15,15 @@ import { IoClose } from "react-icons/io5";
 
 import Article from "../components/Article";
 import Event from "../components/Event";
+import FormModal from "../components/FormModal";
 const Home = () => {
   const [activeTab, setActiveTab] = useState("allposts");
   const [filterTab, setFilterTab] = useState(false);
   const [showRecommended, setShowRecommended] = useState(false);
   const [joinGroup, setJoinGroup] = useState(true);
   const [searchLoc, setSearchLoc] = useState(true);
+
+  const { showForm, handleShowForm } = useOutletContext();
 
   const [items, setItems] = useState([
     { id: 1, name: "Leisure", isFollowed: false },
@@ -65,6 +68,14 @@ const Home = () => {
 
   return (
     <div className="">
+      {showForm && (
+        <div className="fixed inset-0 z-10 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="w-full h-full flex items-center justify-center">
+            <FormModal onClose={handleShowForm} />
+          </div>
+        </div>
+      )}
+
       {/* Banner */}
       <div className="relative bg-[url('/home.png')] bg-cover bg-center bg-no-repeat h-[75vh] mb-5">
         <div className="absolute inset-0 bg-black bg-opacity-40">
