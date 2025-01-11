@@ -2,6 +2,7 @@ import Proptypes from "prop-types";
 import { IoEyeOutline, IoClose } from "react-icons/io5";
 import { FaFacebook } from "react-icons/fa";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const FormModal = ({ onClose }) => {
   const [registerForm, setRegisterForm] = useState(true);
@@ -10,26 +11,30 @@ const FormModal = ({ onClose }) => {
     setRegisterForm(!registerForm);
   };
 
+  const handleSubmit = (e) => {
+    console.log("Form submitted");
+  };
+
   return (
-    <div className="inset-0 fixed flex items-center justify-center z-10 bg-black bg-opacity-15">
-      <div className="relative bg-white rounded-md shadow-lg max-w-4xl w-full">
-        <div className="text-center px-10 py-4 font-semibold text-green-600 bg-green-500 bg-opacity-10">
+    <div className="inset-0 md:pt-8 lg:pt-6 xl:mt-0 fixed flex items-center justify-center z-10 bg-black bg-opacity-15">
+      <div className="absolute bottom-0 md:relative bg-white rounded-md shadow-lg md:max-w-2xl lg:max-w-3xl xl:max-w-4xl w-full">
+        <div className="hidden md:block text-center px-10 py-4 font-semibold text-green-600 bg-green-500 bg-opacity-10">
           Let's learn, share & inspire each other with our passion for computer
           engineering. Sign up now 🤘🏼
         </div>
 
         <button
           onClick={onClose}
-          className="absolute -top-10 -right-4 text-black bg-gray-200 rounded-full p-1 hover:bg-gray-300"
+          className="absolute top-4 md:-top-8 xl:-top-10 right-2 md:-right-4 text-white md:text-black bg-gray-500 md:bg-gray-200 rounded-full p-1 hover:bg-gray-300"
         >
-          <IoClose className="text-xl" />
+          <IoClose className="text-lg md:text-xl" />
         </button>
-        <div className="mt-5 px-10 pb-10">
+        <div className="mt-5 px-4 md:px-8 xl:px-10 pb-5 md:pb-10">
           <div className="flex items-center justify-between">
             <h1 className="font-bold text-xl">
               {registerForm ? "Create Account" : "Sign In"}
             </h1>
-            <h2>
+            <h2 className="hidden md:block">
               {registerForm ? (
                 <>
                   Already have an account?{" "}
@@ -53,22 +58,25 @@ const FormModal = ({ onClose }) => {
               )}
             </h2>
           </div>
-          <div className="mt-5 flex justify-between space-x-10">
+          <div className="mt-5 flex flex-col md:flex-row justify-between space-y-3.5 md:space-x-10">
             {/* Form */}
-            <form className="w-full flex flex-col space-y-5">
+            <form
+              onSubmit={handleSubmit}
+              className="w-full flex flex-col space-y-3"
+            >
               {registerForm && (
-                <div className="flex items-center space-x-5">
+                <div className="flex items-center w-full">
                   <input
                     type="text"
                     name="firstname"
                     placeholder="FirstName"
-                    className="outline-none border-b border-b-gray-400 pb-2 px-3 focus:border-gray-500"
+                    className="outline-none border py-2 w-full border-gray-300 bg-gray-100 px-3 focus:border-gray-400 rounded-l"
                   />
                   <input
                     type="text"
                     name="lastname"
                     placeholder="LastName"
-                    className="outline-none border-b border-b-gray-400 pb-2 px-3 focus:border-gray-500"
+                    className="outline-none border py-2 w-full border-gray-300 bg-gray-100 px-3 focus:border-gray-400 rounded-r"
                   />
                 </div>
               )}
@@ -77,36 +85,53 @@ const FormModal = ({ onClose }) => {
                 type="email"
                 name="email"
                 placeholder="Email"
-                className="outline-none border-b border-b-gray-400 pb-2 px-3 focus:border-gray-500"
+                className="outline-none border py-2 border-gray-300 bg-gray-100 px-3 focus:border-gray-400 rounded"
               />
               <div className="relative">
                 <input
                   type="password"
                   name="password"
                   placeholder="Password"
-                  className="outline-none border-b w-full border-b-gray-400 pb-2 px-3 focus:border-gray-500"
+                  className="outline-none border w-full py-2 border-gray-300 bg-gray-100 px-3 focus:border-gray-400 rounded"
                 />
-                <IoEyeOutline className="absolute top-2 right-2 text-lg text-gray-500 hover:cursor-pointer" />
+                <IoEyeOutline className="absolute top-3 right-2 text-lg text-gray-500 hover:cursor-pointer" />
               </div>
               {registerForm && (
                 <input
                   type="password"
                   name="cpassword"
                   placeholder="Confirm Password"
-                  className="outline-none border-b border-b-gray-400 pb-2 px-3 focus:border-gray-500"
+                  className="outline-none border py-2 border-gray-300 bg-gray-100 px-3 focus:border-gray-400 rounded"
                 />
               )}
 
-              <div className="!mt-6">
-                <button className="py-2 text-center w-full rounded-full font-semibold bg-blue-500 hover:bg-blue-600 text-white">
-                  Create Account
-                </button>
+              <div className="xl:!mt-6">
+                <div className="flex items-center justify-between w-full">
+                  <Link to={"/user"} className="md:w-full">
+                    <button className="py-2 px-5 md:text-center md:w-full rounded-full font-semibold bg-blue-500 hover:bg-blue-600 text-white">
+                      {registerForm ? " Create Account" : "Sign in"}
+                    </button>
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={handleRegisterForm}
+                    className="text-sm underline md:hidden"
+                  >
+                    {registerForm ? "or, Sign in" : "or, Create Account"}
+                  </button>
+                </div>
                 <div className="mt-7 space-y-3">
-                  <button className="flex items-center justify-center py-2 text-center w-full rounded-md bg-transparent hover:bg-gray-100 border border-gray-300">
+                  <button
+                    type="button"
+                    className="flex items-center justify-center py-2 text-center w-full rounded-md bg-transparent hover:bg-gray-100 border border-gray-300"
+                  >
                     <FaFacebook className="text-xl mr-2 text-blue-500" />
                     Sign up with Facebook
                   </button>
-                  <button className="flex items-center justify-center py-2 text-center w-full rounded-md bg-transparent hover:bg-gray-100 border border-gray-300">
+                  <button
+                    type="button"
+                    className="flex items-center justify-center py-2 text-center w-full rounded-md bg-transparent hover:bg-gray-100 border border-gray-300"
+                  >
                     <span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -149,11 +174,11 @@ const FormModal = ({ onClose }) => {
             </form>
 
             <div className="w-full">
-              <div className="mx-auto">
+              <div className="hidden md:block mx-auto">
                 <img src="/illustration.png" alt="illustration" />
               </div>
               {registerForm && (
-                <div className="mt-10 text-xs text-gray-400">
+                <div className="md:mt-10 text-center md:text-left text-xs text-gray-400">
                   By signing up, you agree to our Terms & conditions, Privacy
                   policy
                 </div>

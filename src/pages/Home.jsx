@@ -67,7 +67,7 @@ const Home = () => {
   };
 
   return (
-    <div className="">
+    <div className="relative">
       {showForm && (
         <div className="fixed inset-0 z-10 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="w-full h-full flex items-center justify-center">
@@ -82,8 +82,11 @@ const Home = () => {
           <div className="container">
             <div className="flex items-center justify-between px-3 py-4 lg:hidden">
               <FaArrowLeft className="hover:cursor-pointer text-white text-2xl" />
-              <button className="px-4 py-2 text-white bg-black hover:bg-gray-950 border border-white rounded-md">
-                Join Group
+              <button
+                onClick={handleJoinGroup}
+                className="px-4 py-2 text-white bg-black hover:bg-gray-950 border border-white rounded-md"
+              >
+                {joinGroup ? "Join Group" : "Leave Group"}
               </button>
             </div>
             <div className="absolute xl:left-52 xl:bottom-20 left-4 bottom-10">
@@ -320,6 +323,14 @@ const Home = () => {
             )}
           </div>
         </div>
+      </div>
+
+      {/* Pencil Icon */}
+      <div
+        onClick={handleShowForm}
+        className="lg:hidden fixed right-1.5 bottom-5 p-3.5 bg-gradient-to-tr from-[#FF5C5C] to-[#F0568A] rounded-full hover:cursor-pointer shadow-lg"
+      >
+        <BiSolidPencil className="text-white text-2xl" />
       </div>
     </div>
   );
