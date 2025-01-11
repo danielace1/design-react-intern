@@ -2,11 +2,8 @@
   "name": "design-react-intern",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://danielace1.github.io/design-react-intern/",
   "type": "module",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
